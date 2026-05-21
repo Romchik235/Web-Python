@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>🦷 Стоматологічний кабінет (Flask)</h1>
+<p style="color:#555;margin-bottom:20px">Лабораторна робота № 7 — Flask + WTForms + Application Factory + SQLAlchemy + Jinja2</p>
+<div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px">
+  {% for title, count, icon, link in [("Лікарі", doctors_count, "👨‍⚕️", url_for("doctors_list")),
+     ("Пацієнти", patients_count, "🧑", url_for("patients_list")),
+     ("Прийоми", appointments_count, "📅", url_for("appointments_list"))] %}
+  <div style="background:white;border-radius:8px;padding:24px;flex:1;min-width:220px;box-shadow:0 2px 8px rgba(0,0,0,.08)">
+    <h2 style="color:#2874a6">{{ icon }} {{ title }}</h2>
+    <p style="font-size:40px;font-weight:bold;color:#1a5276;margin:10px 0">{{ count }}</p>
+    <a href="{{ link }}">Переглянути →</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:#f4f8fd;
+}
+
+.choice-container{
+
+    width:450px;
+    margin:80px auto;
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 0 15px rgba(0,0,0,0.15);
+}
+
+.choice-btn{
+
+    display:block;
+    width:100%;
+    margin-top:20px;
+    padding:15px;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:18px;
+    color:white;
+}
+
+.login-btn{
+    background:#0b4f7a;
+}
+
+.register-btn{
+    background:#198754;
+}
+
+</style>
+
+<div class="choice-container">
+
+    <h1>Стоматологічний кабінет</h1>
+
+    <h3>Оберіть дію</h3>
+
+    <a href="{{ url_for('login') }}"
+       class="choice-btn login-btn">
+
+        Увійти в акаунт
+
+    </a>
+
+    <a href="{{ url_for('register') }}"
+       class="choice-btn register-btn">
+
+        Зареєструватися
+
+    </a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Admin Panel</h1>
+
+<table border="1" cellpadding="10">
+
+<tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>Role</th>
+    <th>Actions</th>
+</tr>
+
+{% for user in users %}
+
+<tr>
+
+    <td>{{ user.id }}</td>
+
+    <td>{{ user.username }}</td>
+
+    <td>{{ user.role }}</td>
+
+    <td>
+
+        {% if user.role == 'user' %}
+
+        <a href="{{ url_for('make_admin', user_id=user.id) }}">
+            Зробити адміном
+        </a>
+
+        {% endif %}
+
+        {% if user.username != current_user.username %}
+
+        <a href="{{ url_for('delete_user', user_id=user.id) }}"
+           onclick="return confirm('Видалити користувача?')">
+
+            Видалити
+
+        </a>
+
+        {% endif %}
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

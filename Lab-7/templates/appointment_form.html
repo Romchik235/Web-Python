@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% if action == 'Редагувати' %}✏️ Редагувати прийом{% else %}➕ Додати прийом{% endif %}</h1>
+<div class="form-box">
+<form method="post">
+  {{ form.hidden_tag() }}
+  {% for field in form if field.widget.input_type != 'hidden' %}
+  <div class="form-group">
+    {{ field.label }}
+    {{ field(class="form-input") }}
+    {% if field.errors %}<p style="color:red;font-size:13px">{{ field.errors[0] }}</p>{% endif %}
+  </div>
+  {% endfor %}
+  {% if action == 'Редагувати' %}
+  <button type="submit" class="btn btn-primary"
+    onclick="return confirm('Зберегти зміни? Це остаточне рішення.')">💾 Зберегти зміни</button>
+  {% else %}
+  <button type="submit" class="btn btn-primary">➕ Додати прийом</button>
+  {% endif %}
+  <a href="{{ url_for('appointments_list') }}" style="margin-left:10px">← Скасувати</a>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.auth-container{
+    width: 420px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.auth-container h1{
+    text-align:center;
+    margin-bottom:25px;
+    color:#0b4f7a;
+}
+
+.auth-container input{
+    width:100%;
+    padding:12px;
+    margin-top:8px;
+    margin-bottom:18px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.auth-container button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#0b4f7a;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.auth-container button:hover{
+    background:#083a59;
+}
+
+.auth-links{
+    text-align:center;
+    margin-top:15px;
+}
+
+.show-password{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
+    margin-top:-10px;
+    margin-bottom:20px;
+}
+
+</style>
+
+<div class="auth-container">
+
+    <h1>Вхід</h1>
+
+    <form method="POST" autocomplete="off">
+
+        {{ form.hidden_tag() }}
+
+        <label>Username</label>
+
+        {{ form.username(
+            autocomplete="off"
+        ) }}
+
+        <label>Password</label>
+
+        {{ form.password(
+            id="password",
+            autocomplete="new-password"
+        ) }}
+
+        <label class="show-password">
+
+            Показати пароль
+
+            <input type="checkbox"
+                   onclick="togglePassword()">
+
+        </label>
+
+        <button type="submit">
+            Увійти
+        </button>
+
+        <a href="{{ url_for('forgot_password') }}"
+           style="
+              display:block;
+              box-sizing:border-box;
+              margin-top:15px;
+              background:#f39c12;
+              color:white;
+              padding:12px 15px;
+              border-radius:8px;
+              text-decoration:none;
+              width:100%;
+              text-align:center;
+           ">
+
+            Забули пароль?
+
+        </a>
+
+    </form>
+
+    <div class="auth-links">
+
+        <a href="{{ url_for('register') }}">
+            Зареєструватися
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+function togglePassword(){
+
+    const passwordInput =
+        document.getElementById("password");
+
+    if(passwordInput.type === "password"){
+
+        passwordInput.type = "text";
+
+    }
+    else{
+
+        passwordInput.type = "password";
+    }
+}
+
+</script>
+
+{% endblock %}
