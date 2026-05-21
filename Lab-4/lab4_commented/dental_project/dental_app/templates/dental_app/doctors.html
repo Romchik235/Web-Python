@@ -1,0 +1,20 @@
+{% extends "dental_app/base.html" %}
+{% block content %}
+<h1>👨‍⚕️ Лікарі</h1>
+<table>
+    <tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Спеціалізація</th><th>Телефон</th><th>Досвід (роки)</th><th>Детально</th></tr>
+    {% for doctor in doctors %}
+    <tr>
+        <td>{{ doctor.id }}</td>
+        <td>{{ doctor.name }}</td>
+        <td>{{ doctor.surname }}</td>
+        <td>{{ doctor.specialization }}</td>
+        <td>{{ doctor.phone }}</td>
+        <td>{{ doctor.experience }}</td>
+        <td><a href="{% url 'doctor_detail' doctor.id %}">Детально →</a></td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="7">Лікарів не знайдено</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "dental_app/base.html" %}
+{% block content %}
+<h1>👨‍⚕️ {{ doctor.name }} {{ doctor.surname }}</h1>
+<div class="card">
+    <p><span class="label">Спеціалізація:</span> {{ doctor.specialization }}</p>
+    <p><span class="label">Телефон:</span> {{ doctor.phone }}</p>
+    <p><span class="label">Досвід роботи:</span> {{ doctor.experience }} років</p>
+</div>
+<a href="{% url 'doctors' %}">← Назад до списку лікарів</a>
+{% endblock %}

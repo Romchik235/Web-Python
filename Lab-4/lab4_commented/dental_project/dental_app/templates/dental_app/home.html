@@ -1,0 +1,22 @@
+{% extends "dental_app/base.html" %}
+{% block content %}
+<h1>🦷 Ласкаво просимо до Стоматологічного кабінету</h1>
+<p style="margin-bottom:20px; color:#555">Інформаційна система управління стоматологічним кабінетом (Лабораторна робота №4 — Django)</p>
+<div style="display:flex; gap:20px; flex-wrap:wrap">
+    <div class="card" style="flex:1; min-width:250px">
+        <h2>👨‍⚕️ Лікарі</h2>
+        <p>Перегляд інформації про лікарів кабінету, їх спеціалізацію та контакти.</p>
+        <p><a href="{% url 'doctors' %}">Переглянути лікарів →</a></p>
+    </div>
+    <div class="card" style="flex:1; min-width:250px">
+        <h2>🧑 Пацієнти</h2>
+        <p>Список зареєстрованих пацієнтів та їх контактна інформація.</p>
+        <p><a href="{% url 'patients' %}">Переглянути пацієнтів →</a></p>
+    </div>
+    <div class="card" style="flex:1; min-width:250px">
+        <h2>📅 Прийоми</h2>
+        <p>Розклад прийомів, статус та опис процедур.</p>
+        <p><a href="{% url 'appointments' %}">Переглянути прийоми →</a></p>
+    </div>
+</div>
+{% endblock %}

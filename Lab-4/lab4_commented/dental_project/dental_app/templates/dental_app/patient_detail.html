@@ -1,0 +1,10 @@
+{% extends "dental_app/base.html" %}
+{% block content %}
+<h1>🧑 {{ patient.name }} {{ patient.surname }}</h1>
+<div class="card">
+    <p><span class="label">Дата народження:</span> {{ patient.birth_date }}</p>
+    <p><span class="label">Телефон:</span> {{ patient.phone }}</p>
+    <p><span class="label">Адреса:</span> {{ patient.address }}</p>
+</div>
+<a href="{% url 'patients' %}">← Назад до списку</a>
+{% endblock %}

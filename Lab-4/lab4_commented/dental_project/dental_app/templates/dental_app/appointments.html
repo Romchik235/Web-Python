@@ -1,0 +1,14 @@
+{% extends "dental_app/base.html" %}
+{% block content %}
+<h1>📅 Прийоми</h1>
+<table>
+    <tr><th>ID</th><th>Пацієнт</th><th>Лікар</th><th>Дата</th><th>Опис</th><th>Статус</th></tr>
+    {% for a in appointments %}
+    <tr>
+        <td>{{ a.id }}</td><td>{{ a.patient_name }}</td><td>{{ a.doctor_name }}</td>
+        <td>{{ a.date }}</td><td>{{ a.description }}</td>
+        <td><span class="badge {% if a.status == 'виконано' %}badge-done{% elif a.status == 'скасовано' %}badge-cancel{% else %}badge-plan{% endif %}">{{ a.status }}</span></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
