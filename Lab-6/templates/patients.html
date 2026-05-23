@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>🧑 Пацієнти ({{ session.get('role','user')|upper }})</h1>
+{% if role == 'admin' %}<a href="{{ url_for('patient_create') }}" class="btn btn-primary" style="margin-bottom:15px">➕ Додати пацієнта</a>{% endif %}
+<table>
+  <tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Дата нар.</th><th>Телефон</th><th>Адреса</th>{% if role=='admin' %}<th>Дії</th>{% endif %}</tr>
+  {% for p in patients %}
+  <tr><td>{{ p.id }}</td><td>{{ p.name }}</td><td>{{ p.surname }}</td><td>{{ p.birth_date or "—" }}</td><td>{{ p.phone or "—" }}</td><td>{{ p.address or "—" }}</td>
+  {% if role=='admin' %}<td>
+    <a href="{{ url_for('patient_update', pk=p.id) }}" class="btn btn-sm btn-primary"
+       onclick="return confirm('Ви хочете редагувати пацієнта {{ p.name }} {{ p.surname }}?')">✏️</a>
+    <a href="{{ url_for('medical_card', pk=p.id) }}" class="btn btn-sm" style="background:#27ae60;color:white">🏥</a>
+    <form style="display:inline" method="post" action="{{ url_for('patient_delete', pk=p.id) }}"
+          onsubmit="return confirm('Видалити пацієнта {{ p.name }} {{ p.surname }}?\nМедична карта та всі прийоми також будуть видалені!')">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
+    </form>
+  </td>{% endif %}</tr>
+  {% else %}<tr><td colspan="7">Пацієнтів не знайдено</td></tr>{% endfor %}
+</table>
+{% endblock %}

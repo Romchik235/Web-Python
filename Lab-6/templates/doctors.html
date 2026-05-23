@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>👨‍⚕️ Лікарі ({{ session.get('role','user')|upper }})</h1>
+{% if role == 'admin' %}<a href="{{ url_for('doctor_create') }}" class="btn btn-primary" style="margin-bottom:15px">➕ Додати лікаря</a>{% endif %}
+<table>
+  <tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Спеціалізація</th><th>Телефон</th><th>Досвід</th>{% if role=='admin' %}<th>Дії</th>{% endif %}</tr>
+  {% for d in doctors %}
+  <tr><td>{{ d.id }}</td><td>{{ d.name }}</td><td>{{ d.surname }}</td><td>{{ d.specialization }}</td><td>{{ d.phone or "—" }}</td><td>{{ d.experience }} р.</td>
+  {% if role=='admin' %}<td>
+    <a href="{{ url_for('doctor_update', pk=d.id) }}" class="btn btn-sm btn-primary"
+       onclick="return confirm('Ви хочете редагувати лікаря {{ d.name }} {{ d.surname }}?')">✏️</a>
+    <form style="display:inline" method="post" action="{{ url_for('doctor_delete', pk=d.id) }}"
+          onsubmit="return confirm('Видалити лікаря {{ d.name }} {{ d.surname }}?\nУСІ його прийоми також будуть видалені!')">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
+    </form>
+  </td>{% endif %}</tr>
+  {% else %}<tr><td colspan="7">Лікарів не знайдено</td></tr>{% endfor %}
+</table>
+{% endblock %}

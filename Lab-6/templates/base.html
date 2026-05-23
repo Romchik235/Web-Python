@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}Стоматологічний кабінет{% endblock %}</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:Arial,sans-serif; background:#f4f8fd; color:#333; }
+nav { background:#1a5276; padding:12px 30px; display:flex; align-items:center; gap:16px; }
+nav a { color:white; text-decoration:none; padding:6px 12px; border-radius:4px; font-size:15px; }
+nav a:hover { background:rgba(255,255,255,0.2); }
+.brand { font-size:18px; font-weight:bold; margin-right:auto; color:white; }
+.container { max-width:1100px; margin:30px auto; padding:0 20px; }
+h1 { color:#1a5276; margin-bottom:20px; }
+table { width:100%; border-collapse:collapse; background:white; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.08); }
+th { background:#2874a6; color:white; padding:10px 14px; text-align:left; }
+td { padding:10px 14px; border-bottom:1px solid #eee; }
+tr:hover { background:#eaf4fb; }
+a.btn { display:inline-block; text-decoration:none; }
+.btn { padding:7px 18px; border:none; border-radius:4px; cursor:pointer; font-size:14px; }
+.btn-primary { background:#2874a6; color:white; }
+.btn-danger { background:#c0392b; color:white; }
+.btn-sm { padding:4px 10px; font-size:13px; }
+.form-group { margin-bottom:16px; }
+.form-group label { display:block; font-weight:bold; margin-bottom:4px; color:#1a5276; }
+.form-input, input[type=text], input[type=date], select, textarea { padding:7px 10px; border:1px solid #bbb; border-radius:4px; width:300px; font-size:14px; }
+.form-box { background:white; padding:24px; border-radius:8px; max-width:520px; box-shadow:0 2px 8px rgba(0,0,0,.08); }
+.alert { padding:10px 16px; border-radius:4px; margin-bottom:12px; }
+.alert-success { background:#d5f5e3; color:#1e8449; border-left:4px solid #1e8449; }
+.alert-danger { background:#fadbd8; color:#922b21; border-left:4px solid #922b21; }
+.badge { padding:3px 10px; border-radius:10px; font-size:13px; }
+.badge-plan { background:#d6eaf8; color:#1a5276; }
+.badge-done { background:#d5f5e3; color:#1e8449; }
+.badge-cancel { background:#fadbd8; color:#922b21; }
+.role-info { background:rgba(255,255,255,0.15); color:white; padding:4px 12px; border-radius:8px; font-size:13px; }
+</style>
+</head>
+<body>
+<nav>
+  <span class="brand">🦷 Стоматологічний кабінет</span>
+  <a href="{{ url_for('home') }}">🏠 Головна</a>
+  <a href="{{ url_for('doctors_list') }}">👨‍⚕️ Лікарі</a>
+  <a href="{{ url_for('patients_list') }}">🧑 Пацієнти</a>
+  <a href="{{ url_for('appointments_list') }}">📅 Прийоми</a>
+  <span class="role-info">{{ session.get('role','user')|upper }}</span>
+  {% if session.get('role') == 'admin' %}
+    <a href="{{ url_for('set_role', role='user') }}" style="background:rgba(255,255,255,0.1)">→ Користувач</a>
+  {% else %}
+    <a href="{{ url_for('set_role', role='admin') }}" style="background:rgba(255,255,255,0.1)">→ Адмін</a>
+  {% endif %}
+</nav>
+<div class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}{% for cat, msg in messages %}
+    <div class="alert alert-{{ cat }}">{{ msg }}</div>
+    {% endfor %}{% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</div>
+</body>
+</html>

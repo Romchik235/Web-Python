@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>📅 Прийоми ({{ session.get('role','user')|upper }})</h1>
+{% if role == 'admin' %}<a href="{{ url_for('appointment_create') }}" class="btn btn-primary" style="margin-bottom:15px">➕ Додати прийом</a>{% endif %}
+<table>
+  <tr><th>ID</th><th>Пацієнт</th><th>Лікар</th><th>Дата</th><th>Опис</th><th>Статус</th>{% if role=='admin' %}<th>Дії</th>{% endif %}</tr>
+  {% for a in appointments %}
+  {% set badge = 'plan' if a.status == 'заплановано' else ('done' if a.status == 'виконано' else 'cancel') %}
+  <tr><td>{{ a.id }}</td><td>{{ a.patient }}</td><td>{{ a.doctor }}</td><td>{{ a.appointment_date }}</td><td>{{ a.description or "—" }}</td>
+  <td><span class="badge badge-{{ badge }}">{{ a.status }}</span></td>
+  {% if role=='admin' %}<td>
+    <a href="{{ url_for('appointment_update', pk=a.id) }}" class="btn btn-sm btn-primary"
+       onclick="return confirm('Ви хочете редагувати прийом #{{ a.id }}?')">✏️</a>
+    <form style="display:inline" method="post" action="{{ url_for('appointment_delete', pk=a.id) }}"
+          onsubmit="return confirm('Видалити прийом #{{ a.id }} ({{ a.patient }}, {{ a.appointment_date }})?')">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
+    </form>
+  </td>{% endif %}</tr>
+  {% else %}<tr><td colspan="7">Прийомів не знайдено</td></tr>{% endfor %}
+</table>
+{% endblock %}
