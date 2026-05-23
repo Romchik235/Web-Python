@@ -1,0 +1,22 @@
+{% extends "dental/base.html" %}
+{% block content %}
+<h1>🦷 Стоматологічний кабінет (Django)</h1>
+<p style="color:#555;margin-bottom:20px">Лабораторна робота №5 — Django з БД, формами та CRUD</p>
+<div style="display:flex;gap:20px;flex-wrap:wrap">
+  <div style="background:white;border-radius:8px;padding:20px;flex:1;min-width:220px;box-shadow:0 2px 8px rgba(0,0,0,.08)">
+    <h2 style="color:#2874a6">👨‍⚕️ Лікарі</h2>
+    <p style="font-size:36px;font-weight:bold;color:#1a5276">{{ doctors_count }}</p>
+    <a href="/doctors/?role={{ role }}">Переглянути →</a>
+  </div>
+  <div style="background:white;border-radius:8px;padding:20px;flex:1;min-width:220px;box-shadow:0 2px 8px rgba(0,0,0,.08)">
+    <h2 style="color:#2874a6">🧑 Пацієнти</h2>
+    <p style="font-size:36px;font-weight:bold;color:#1a5276">{{ patients_count }}</p>
+    <a href="/patients/?role={{ role }}">Переглянути →</a>
+  </div>
+  <div style="background:white;border-radius:8px;padding:20px;flex:1;min-width:220px;box-shadow:0 2px 8px rgba(0,0,0,.08)">
+    <h2 style="color:#2874a6">📅 Прийоми</h2>
+    <p style="font-size:36px;font-weight:bold;color:#1a5276">{{ appointments_count }}</p>
+    <a href="/appointments/?role={{ role }}">Переглянути →</a>
+  </div>
+</div>
+{% endblock %}

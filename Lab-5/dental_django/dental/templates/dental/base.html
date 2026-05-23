@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>{{ title|default:"Стоматологічний кабінет" }}</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:Arial,sans-serif; background:#f4f8fd; }
+nav { background:#1a5276; padding:12px 30px; display:flex; align-items:center; gap:16px; }
+nav a { color:white; text-decoration:none; padding:6px 12px; border-radius:4px; }
+nav a:hover { background:rgba(255,255,255,0.2); }
+.brand { font-size:18px; font-weight:bold; margin-right:auto; color:white; }
+.container { max-width:1100px; margin:30px auto; padding:0 20px; }
+h1 { color:#1a5276; margin-bottom:20px; }
+table { width:100%; border-collapse:collapse; background:white; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.08); }
+th { background:#2874a6; color:white; padding:10px 14px; text-align:left; }
+td { padding:10px 14px; border-bottom:1px solid #eee; }
+tr:hover { background:#eaf4fb; }
+.form-input { padding:7px 10px; border:1px solid #bbb; border-radius:4px; width:300px; font-size:14px; }
+.btn { padding:8px 20px; border:none; border-radius:4px; cursor:pointer; font-size:14px; }
+.btn-primary { background:#2874a6; color:white; }
+.btn-danger { background:#c0392b; color:white; }
+.btn-sm { padding:4px 10px; font-size:13px; }
+a { color:#2874a6; text-decoration:none; }
+.messages { margin-bottom:15px; }
+.alert { padding:10px 16px; border-radius:4px; margin-bottom:8px; }
+.alert-success { background:#d5f5e3; color:#1e8449; }
+.alert-error { background:#fadbd8; color:#922b21; }
+.badge-planned { background:#d6eaf8; color:#1a5276; padding:2px 8px; border-radius:8px; font-size:13px; }
+.badge-done { background:#d5f5e3; color:#1e8449; padding:2px 8px; border-radius:8px; font-size:13px; }
+.badge-cancelled { background:#fadbd8; color:#922b21; padding:2px 8px; border-radius:8px; font-size:13px; }
+.role-badge { background:rgba(255,255,255,0.2); color:white; padding:4px 10px; border-radius:8px; font-size:13px; }
+</style>
+</head>
+<body>
+<nav>
+  <span class="brand">🦷 Стоматологічний кабінет</span>
+  <a href="/?role={{ role }}">Головна</a>
+  <a href="/doctors/?role={{ role }}">👨‍⚕️ Лікарі</a>
+  <a href="/patients/?role={{ role }}">🧑 Пацієнти</a>
+  <a href="/appointments/?role={{ role }}">📅 Прийоми</a>
+  <span class="role-badge">{{ role|upper }}</span>
+  {% if role == 'user' %}<a href="?role=admin" style="background:rgba(255,255,255,0.15)">→ Адмін</a>
+  {% else %}<a href="?role=user" style="background:rgba(255,255,255,0.15)">→ Користувач</a>{% endif %}
+</nav>
+<div class="container">
+{% if messages %}<div class="messages">{% for msg in messages %}<div class="alert alert-{{ msg.tags }}">{{ msg }}</div>{% endfor %}</div>{% endif %}
+{% block content %}{% endblock %}
+</div>
+</body>
+</html>

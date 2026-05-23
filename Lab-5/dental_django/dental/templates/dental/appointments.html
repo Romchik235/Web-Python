@@ -1,0 +1,13 @@
+{% extends "dental/base.html" %}
+{% block content %}
+<h1>📅 Прийоми ({{ role|upper }})</h1>
+{% if role == 'admin' %}<a href="/appointments/add/?role=admin" class="btn btn-primary" style="margin-bottom:15px;display:inline-block">➕ Додати прийом</a>{% endif %}
+<table>
+  <tr><th>ID</th><th>Пацієнт</th><th>Лікар</th><th>Дата та час</th><th>Опис</th><th>Статус</th>{% if role == 'admin' %}<th>Дії</th>{% endif %}</tr>
+  {% for a in appointments %}
+  <tr><td>{{ a.id }}</td><td>{{ a.patient }}</td><td>{{ a.doctor }}</td><td>{{ a.appointment_date }}</td><td>{{ a.description|default:"—" }}</td>
+  <td><span class="badge-{{ a.status }}">{{ a.get_status_display }}</span></td>
+  {% if role == 'admin' %}<td><a href="/appointments/{{ a.id }}/edit/?role=admin">✏️</a> | <a href="/appointments/{{ a.id }}/delete/?role=admin" style="color:#c0392b">🗑️</a></td>{% endif %}</tr>
+  {% empty %}<tr><td colspan="7">Прийомів не знайдено</td></tr>{% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "dental/base.html" %}
+{% block content %}
+<h1>🧑 Пацієнти ({{ role|upper }})</h1>
+{% if role == 'admin' %}<a href="/patients/add/?role=admin" class="btn btn-primary" style="margin-bottom:15px;display:inline-block">➕ Додати пацієнта</a>{% endif %}
+<table>
+  <tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Дата нар.</th><th>Телефон</th><th>Адреса</th>{% if role == 'admin' %}<th>Дії</th>{% endif %}</tr>
+  {% for p in patients %}
+  <tr><td>{{ p.id }}</td><td>{{ p.name }}</td><td>{{ p.surname }}</td><td>{{ p.birth_date|default:"—" }}</td><td>{{ p.phone|default:"—" }}</td><td>{{ p.address|default:"—" }}</td>
+  {% if role == 'admin' %}<td><a href="/patients/{{ p.id }}/edit/?role=admin">✏️</a> | <a href="/patients/{{ p.id }}/delete/?role=admin" style="color:#c0392b">🗑️</a></td>{% endif %}</tr>
+  {% empty %}<tr><td colspan="7">Пацієнтів не знайдено</td></tr>{% endfor %}
+</table>
+{% endblock %}

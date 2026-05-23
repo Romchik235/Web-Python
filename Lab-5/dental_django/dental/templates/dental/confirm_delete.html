@@ -1,0 +1,13 @@
+{% extends "dental/base.html" %}
+{% block content %}
+<h1>🗑️ Підтвердити видалення</h1>
+<div style="background:white;padding:24px;border-radius:8px;max-width:450px;box-shadow:0 2px 8px rgba(0,0,0,.08)">
+  <p>Ви впевнені, що хочете видалити: <b>{{ object }}</b>?</p>
+  <p style="color:#c0392b;margin:12px 0">Цю дію неможливо скасувати.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Так, видалити</button>
+    <a href="javascript:history.back()" style="margin-left:10px">← Скасувати</a>
+  </form>
+</div>
+{% endblock %}
